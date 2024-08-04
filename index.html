@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boggle - Página Principal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">Boggle</a></h1>
+    </header>
+
+    <main>
+        <section id="player-input">
+            <h2>Ingresa tu nombre para jugar</h2>
+            <form id="player-form" action="play.html">
+                <label for="player-name">Nombre del jugador:</label>
+                <input type="text" id="player-name" name="player-name" minlength="3" required>
+                
+                <div class="timer-selection">
+                    <label for="timer">Tiempo de juego:</label>
+                    <select id="timer" name="timer" required>
+                        <option value="1">1 minuto</option>
+                        <option value="2">2 minutos</option>
+                        <option value="3">3 minutos</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Jugar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <a href="https://github.com/your-username/proyecto-boggle" target="_blank" rel="noopener noreferrer">Ver código en GitHub</a>
+    </footer>
+
+    <script src="scripts/game.js"></script>
+</body>
+</html>
