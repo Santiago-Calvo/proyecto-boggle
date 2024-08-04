@@ -90,16 +90,37 @@ function startWordSelection(e) {
     if (e.target.classList.contains('grid-cell')) {
         currentWord = e.target.textContent === 'Qu' ? 'Qu' : e.target.textContent;
         e.target.classList.add('selected');
+        selectedCells = [{ 
+            row: parseInt(e.target.dataset.row),
+            col: parseInt(e.target.dataset.col)
+        }];
         updateCurrentWord();
     }
 }
 
 function continueWordSelection(e) {
     if (e.buttons === 1 && e.target.classList.contains('grid-cell') && !e.target.classList.contains('selected')) {
-        currentWord += e.target.textContent === 'Qu' ? 'Qu' : e.target.textContent;
-        e.target.classList.add('selected');
-        updateCurrentWord();
+        const newRow = parseInt(e.target.dataset.row);
+        const newCol = parseInt(e.target.dataset.col);
+        
+        if (isValidNextCell(newRow, newCol)) {
+            currentWord += e.target.textContent === 'Qu' ? 'Qu' : e.target.textContent;
+            e.target.classList.add('selected');
+            selectedCells.push({ row: newRow, col: newCol });
+            updateCurrentWord();
+        }
     }
+}
+
+function isValidNextCell(row, col) {
+    if (selectedCells.length === 0) return true;
+    
+    const lastCell = selectedCells[selectedCells.length - 1];
+    const rowDiff = Math.abs(row - lastCell.row);
+    const colDiff = Math.abs(col - lastCell.col);
+    
+    // Cada letra después de la primera debe ser vecina horizontal, vertical o diagonal de la anterior.
+    return rowDiff <= 1 && colDiff <= 1 && !(rowDiff === 0 && colDiff === 0);
 }
 
 function endWordSelection() {
@@ -146,6 +167,7 @@ function resetSelection() {
     currentWord = '';
     updateCurrentWord();
     boggleGrid.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('selected'));
+    selectedCells = [];
 }
 
 function endGame() {
