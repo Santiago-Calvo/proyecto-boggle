@@ -157,6 +157,25 @@
   footer a:hover {
     text-decoration: underline;
   }
+
+  .game-mode-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .game-mode-buttons button {
+    flex: 1;
+    margin: 0 0.5rem;
+  }
+  
+  .game-mode-buttons button:first-child {
+    margin-left: 0;
+  }
+  
+  .game-mode-buttons button:last-child {
+    margin-right: 0;
+  }
   
   @media (max-width: 768px) {
     header {

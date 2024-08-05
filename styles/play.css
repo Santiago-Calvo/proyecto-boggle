@@ -93,7 +93,7 @@ main {
 .grid-cell {
     width: 100px;
     height: 100px;
-    background-color: #f9c784; /* More orange background */
+    background-color: #f9c784;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -189,13 +189,49 @@ footer {
     padding: 1rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .game-container {
+        width: 100%;
+        padding: 1rem;
+    }
+
     .info-container, #boggle-grid, .score-board {
-        width: 300px;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .info-container {
+        flex-direction: column;
+        align-items: center;
     }
 
     #timer, #current-word-container {
-        font-size: 14px;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    #boggle-grid {
+        height: 500px;
+        padding: 20px;
+        margin: 20px 0; 
+    }
+
+    .score-board {
+        margin-top: 20px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 0.5rem;
+    }
+
+    #boggle-grid {
+        height: 290px;
+        padding: 10px;
+        margin: 10px 0; 
     }
 
     .grid-row {
@@ -210,9 +246,16 @@ footer {
 
     .grid-spacer {
         width: 10px;
+        height: 60px;
     }
 
     .grid-spacer-row {
         height: 10px;
+    }
+
+    .score-board {
+        margin-top: 10px; 
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 }
