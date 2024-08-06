@@ -1,5 +1,7 @@
+'use strict'
+
 // Niveles predefinidos
-const LEVELS = [
+var LEVELS = [
     {
         grid: ['E', 'E', 'H', 'L', 'D', 'T', 'P', 'N', 'R', 'B', 'F', 'U', 'E', 'T', 'U', 'T'],
         words: ['TUB', 'THE', 'PUN', 'TEE', 'PUT', 'PET', 'PEE', 'NUT', 'FUN', 'BUT', 'BET', 'TUTU', 'TUFT', 'TUBE', 'THEE', 'TEED', 'PEED', 'HEED', 'DEEP', 'BUTE', 'TUBER', 'REBUT', 'DEPTH', 'BERTH', 'TUFTED', 'BERTHED']
@@ -14,28 +16,28 @@ const LEVELS = [
     }
 ];
 
-const GRID_SIZE = 4;
-const MIN_WORD_LENGTH = 3;
-let GAME_DURATION
+var GRID_SIZE = 4;
+var MIN_WORD_LENGTH = 3;
+var GAME_DURATION
 
-let currentLevel = 0;
-let grid = [];
-let currentWord = '';
-let score = 0;
-let timer;
-let foundWords = new Set();
-let remainingWords = new Set();
+var currentLevel = 0;
+var grid = [];
+var currentWord = '';
+var score = 0;
+var timer;
+var foundWords = new Set();
+var remainingWords = new Set();
 
-const boggleGrid = document.getElementById('boggle-grid');
-const currentWordEl = document.getElementById('current-word');
-const timerEl = document.getElementById('time-left');
-const scoreEl = document.querySelector('#current-score span');
-const wordListEl = document.querySelector('#word-list ul');
-const gameOverModal = document.getElementById('game-over-modal');
-const finalScoreEl = document.getElementById('final-score');
-const playAgainBtn = document.getElementById('play-again');
-const currentLevelEl = document.querySelector('#current-level span');
-const wordsRemainingEl = document.getElementById('words-remaining');
+var boggleGrid = document.getElementById('boggle-grid');
+var currentWordEl = document.getElementById('current-word');
+var timerEl = document.getElementById('time-left');
+var scoreEl = document.querySelector('#current-score span');
+var wordListEl = document.querySelector('#word-list ul');
+var gameOverModal = document.getElementById('game-over-modal');
+var finalScoreEl = document.getElementById('final-score');
+var playAgainBtn = document.getElementById('play-again');
+var currentLevelEl = document.querySelector('#current-level span');
+var wordsRemainingEl = document.getElementById('words-remaining');
 
 function initGame() {
     loadLevel(currentLevel);
@@ -56,9 +58,9 @@ function loadLevel(levelIndex) {
 }
 
 function renderGrid() {
-    const cells = boggleGrid.querySelectorAll('.grid-cell');
+    var cells = boggleGrid.querySelectorAll('.grid-cell');
     cells.forEach((cell, index) => {
-        const letter = grid[index];
+        var letter = grid[index];
         cell.textContent = letter;
         cell.dataset.row = Math.floor(index / GRID_SIZE);
         cell.dataset.col = index % GRID_SIZE;
@@ -66,7 +68,7 @@ function renderGrid() {
 }
 
 function startTimer() {
-    let timeLeft = GAME_DURATION;
+    var timeLeft = GAME_DURATION;
     updateTimer(timeLeft);
     timer = setInterval(() => {
         timeLeft--;
@@ -78,8 +80,8 @@ function startTimer() {
 }
 
 function updateTimer(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    var minutes = Math.floor(time / 60);
+    var seconds = time % 60;
     timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
@@ -110,8 +112,8 @@ function startWordSelection(e) {
 
 function continueWordSelection(e) {
     if (e.buttons === 1 && e.target.classList.contains('grid-cell') && !e.target.classList.contains('selected')) {
-        const newRow = parseInt(e.target.dataset.row);
-        const newCol = parseInt(e.target.dataset.col);
+        var newRow = parseInt(e.target.dataset.row);
+        var newCol = parseInt(e.target.dataset.col);
         
         if (isValidNextCell(newRow, newCol)) {
             currentWord += e.target.textContent;
@@ -125,9 +127,9 @@ function continueWordSelection(e) {
 function isValidNextCell(row, col) {
     if (selectedCells.length === 0) return true;
     
-    const lastCell = selectedCells[selectedCells.length - 1];
-    const rowDiff = Math.abs(row - lastCell.row);
-    const colDiff = Math.abs(col - lastCell.col);
+    var lastCell = selectedCells[selectedCells.length - 1];
+    var rowDiff = Math.abs(row - lastCell.row);
+    var colDiff = Math.abs(col - lastCell.col);
     
     return rowDiff <= 1 && colDiff <= 1 && !(rowDiff === 0 && colDiff === 0);
 }
@@ -164,7 +166,7 @@ function updateScore(word) {
 }
 
 function addWordToList(word) {
-    const li = document.createElement('li');
+    var li = document.createElement('li');
     li.textContent = word;
     wordListEl.appendChild(li);
 }

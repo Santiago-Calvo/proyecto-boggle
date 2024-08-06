@@ -1,3 +1,5 @@
+'use strict'
+
 document.addEventListener('DOMContentLoaded', function() {
     var playerForm = document.getElementById('player-form');
     var playerNameInput = document.getElementById('player-name');

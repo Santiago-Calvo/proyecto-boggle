@@ -1,12 +1,14 @@
+'use strict'
+
 // Config
 const GRID_SIZE = 4;
 const MIN_WORD_LENGTH = 3;
-let GAME_DURATION
-let grid = [];
-let currentWord = '';
-let score = 0;
-let timer;
-let foundWords = new Set();
+var GAME_DURATION
+var grid = [];
+var currentWord = '';
+var score = 0;
+var timer;
+var foundWords = new Set();
 
 const boggleGrid = document.getElementById('boggle-grid');
 const currentWordEl = document.getElementById('current-word');
@@ -38,9 +40,9 @@ function generateGrid() {
     }
     
     grid = [];
-    for (let i = 0; i < GRID_SIZE; i++) {
+    for (var i = 0; i < GRID_SIZE; i++) {
         const row = [];
-        for (let j = 0; j < GRID_SIZE; j++) {
+        for (var j = 0; j < GRID_SIZE; j++) {
             const randomIndex = Math.floor(Math.random() * letters.length);
             const letter = letters.splice(randomIndex, 1)[0];
             row.push(letter);
@@ -62,7 +64,7 @@ function renderGrid() {
 }
 
 function startTimer() {
-    let timeLeft = GAME_DURATION;
+    var timeLeft = GAME_DURATION;
     updateTimer(timeLeft);
     timer = setInterval(() => {
         timeLeft--;
