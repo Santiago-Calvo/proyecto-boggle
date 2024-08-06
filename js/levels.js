@@ -16,9 +16,10 @@ var LEVELS = [
     }
 ];
 
-var GRID_SIZE = 4;
-var MIN_WORD_LENGTH = 3;
-var GAME_DURATION
+const GRID_SIZE = 4;
+const MIN_WORD_LENGTH = 3;
+const LEVEL_REQ = 1;
+let GAME_DURATION
 
 var currentLevel = 0;
 var grid = [];
@@ -91,40 +92,36 @@ function updateTimer(time) {
 }
 
 function setupEventListeners() {
-    boggleGrid.addEventListener('mousedown', startWordSelection);
-    boggleGrid.addEventListener('mouseover', continueWordSelection);
-    boggleGrid.addEventListener('mouseup', endWordSelection);
-    document.addEventListener('mouseup', endWordSelection);
-
-    boggleGrid.addEventListener('touchstart', startWordSelection);
-    boggleGrid.addEventListener('touchmove', continueWordSelection);
-    boggleGrid.addEventListener('touchend', endWordSelection);
-
+    boggleGrid.addEventListener('click', handleCellClick);
     playAgainBtn.addEventListener('click', restartGame);
+    document.addEventListener('click', handleClickOutside);
 }
 
-function startWordSelection(e) {
-    if (e.target.classList.contains('grid-cell')) {
-        currentWord = e.target.textContent;
-        e.target.classList.add('selected');
-        selectedCells = [{ 
-            row: parseInt(e.target.dataset.row),
-            col: parseInt(e.target.dataset.col)
-        }];
-        updateCurrentWord();
+function handleClickOutside(e){
+    if (!boggleGrid.contains(e.target)){
+        resetSelection();
     }
 }
 
-function continueWordSelection(e) {
-    if (e.buttons === 1 && e.target.classList.contains('grid-cell') && !e.target.classList.contains('selected')) {
-        var newRow = parseInt(e.target.dataset.row);
-        var newCol = parseInt(e.target.dataset.col);
+let selectedCells = [];
+
+function handleCellClick(e) {
+    if (e.target.classList.contains('grid-cell')) {
+        const newRow = parseInt(e.target.dataset.row);
+        const newCol = parseInt(e.target.dataset.col);
         
-        if (isValidNextCell(newRow, newCol)) {
-            currentWord += e.target.textContent;
+        if (selectedCells.length === 0 || isValidNextCell(newRow, newCol)) {
             e.target.classList.add('selected');
             selectedCells.push({ row: newRow, col: newCol });
+            currentWord += e.target.textContent;
             updateCurrentWord();
+        } else if (selectedCells.length > 1 && newRow === selectedCells[selectedCells.length - 2].row && newCol === selectedCells[selectedCells.length - 2].col) {
+            const lastCell = selectedCells.pop();
+            document.querySelector(`.grid-cell[data-row="${lastCell.row}"][data-col="${lastCell.col}"]`).classList.remove('selected');
+            currentWord = currentWord.slice(0, -1);
+            updateCurrentWord();
+        } else {
+            resetSelection(); 
         }
     }
 }
@@ -136,33 +133,34 @@ function isValidNextCell(row, col) {
     var rowDiff = Math.abs(row - lastCell.row);
     var colDiff = Math.abs(col - lastCell.col);
     
-    return rowDiff <= 1 && colDiff <= 1 && !(rowDiff === 0 && colDiff === 0);
+    return rowDiff <= 1 && colDiff <= 1 && !(rowDiff === 0 && colDiff === 0) && !isCellAlreadySelected(row, col);
 }
 
-function endWordSelection() {
-    if (currentWord.length >= MIN_WORD_LENGTH) {
-        validateWord(currentWord);
-    }
-    resetSelection();
+function isCellAlreadySelected(row, col) {
+    return selectedCells.some(cell => cell.row === row && cell.col === col);
 }
 
 function updateCurrentWord() {
     currentWordEl.textContent = currentWord;
+    if (currentWord.length >= MIN_WORD_LENGTH) {
+        validateWord(currentWord);
+    }
 }
 
 function validateWord(word) {
     if (remainingWords.has(word) && !foundWords.has(word)) {
         foundWords.add(word);
         remainingWords.delete(word);
+        resetSelection();
         updateScore(word);
         addWordToList(word);
         updateWordsRemaining();
         
-        // pasa de nivel si se encuentran 10 palabras
-        if (foundWords.size === 10) {
+        if (foundWords.size === LEVEL_REQ) {
             endLevel();
         }
     }
+    
 }
 
 function updateScore(word) {
@@ -178,7 +176,7 @@ function addWordToList(word) {
 
 function resetSelection() {
     currentWord = '';
-    updateCurrentWord();
+    currentWordEl.textContent = '';
     boggleGrid.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('selected'));
     selectedCells = [];
 }
@@ -199,14 +197,12 @@ function endLevel() {
 
 function endGame() {
     finalScoreEl.textContent = score;
-    // show modal
     gameOverModal.style.display = 'flex';
 }
 
 function restartGame() {
     currentLevel = 0;
     score = 0;
-    // hide modal
     gameOverModal.style.display = 'none';
     initGame();
 }
