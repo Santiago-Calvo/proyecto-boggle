@@ -1,7 +1,9 @@
 // Config
 const GRID_SIZE = 4;
 const MIN_WORD_LENGTH = 3;
-const GAME_DURATION = 180;
+let PLAYER_NAME
+let GAME_DURATION
+// const GAME_DURATION = 180;
 let grid = [];
 let currentWord = '';
 let score = 0;
@@ -185,4 +187,10 @@ function restartGame() {
     initGame();
 }
 
-initGame();
+document.addEventListener('DOMContentLoaded', function() {
+    // get playername and gametime from localstorage
+    PLAYER_NAME = localStorage.getItem('playerName');
+    GAME_DURATION = localStorage.getItem('gameTime') * 60;
+
+    initGame();
+});
