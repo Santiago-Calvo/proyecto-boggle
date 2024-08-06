@@ -1,5 +1,3 @@
-/* global.css */
-
 :root {
     --main-bg-color: #fce5cd;
     --dark-blue: #233546;
@@ -7,6 +5,7 @@
     --lighter-blue: #f0f5f9; 
     --accent-yellow: #e6a756;
     --text-color: #233546;
+    --text-danger: #ff0000;
   }
   * {
     box-sizing: border-box;
