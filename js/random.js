@@ -1,9 +1,7 @@
 // Config
 const GRID_SIZE = 4;
 const MIN_WORD_LENGTH = 3;
-let PLAYER_NAME
 let GAME_DURATION
-// const GAME_DURATION = 180;
 let grid = [];
 let currentWord = '';
 let score = 0;
@@ -188,9 +186,12 @@ function restartGame() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // get playername and gametime from localstorage
-    PLAYER_NAME = localStorage.getItem('playerName');
+    var playerNameInput = document.getElementById('player-name');
     GAME_DURATION = localStorage.getItem('gameTime') * 60;
+
+    if (localStorage.getItem('playerName')) {
+        playerNameInput.innerHTML = "Jugador: " + localStorage.getItem('playerName');
+    }
 
     initGame();
 });
