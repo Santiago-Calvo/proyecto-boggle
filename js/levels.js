@@ -86,7 +86,13 @@ function updateTimer(time) {
 function setupEventListeners() {
     boggleGrid.addEventListener('mousedown', startWordSelection);
     boggleGrid.addEventListener('mouseover', continueWordSelection);
+    boggleGrid.addEventListener('mouseup', endWordSelection);
     document.addEventListener('mouseup', endWordSelection);
+
+    boggleGrid.addEventListener('touchstart', startWordSelection);
+    boggleGrid.addEventListener('touchmove', continueWordSelection);
+    boggleGrid.addEventListener('touchend', endWordSelection);
+
     playAgainBtn.addEventListener('click', restartGame);
 }
 
