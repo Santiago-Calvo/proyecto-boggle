@@ -187,7 +187,12 @@ function restartGame() {
 
 document.addEventListener('DOMContentLoaded', function() {
     var playerNameInput = document.getElementById('player-name');
-    GAME_DURATION = localStorage.getItem('gameTime') * 60;
+
+    if (localStorage.getItem('gameTime')) {
+        GAME_DURATION = localStorage.getItem('gameTime') * 60;
+    } else {
+        GAME_DURATION = 180;
+    }
 
     if (localStorage.getItem('playerName')) {
         playerNameInput.innerHTML = "Jugador: " + localStorage.getItem('playerName');
