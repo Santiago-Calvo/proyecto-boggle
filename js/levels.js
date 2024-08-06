@@ -87,6 +87,13 @@ function updateTimer(time) {
 function setupEventListeners() {
     boggleGrid.addEventListener('click', handleCellClick);
     playAgainBtn.addEventListener('click', restartGame);
+    document.addEventListener('click', handleClickOutside);
+}
+
+function handleClickOutside(e){
+    if (!boggleGrid.contains(e.target)){
+        resetSelection();
+    }
 }
 
 let selectedCells = [];
