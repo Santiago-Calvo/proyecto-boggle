@@ -70,7 +70,13 @@ function startTimer() {
     timer = setInterval(() => {
         timeLeft--;
         updateTimer(timeLeft);
+
+        if (timeLeft <= 10) {
+            timerEl.classList.add('time-running-out');
+        }
+
         if (timeLeft === 0) {
+            timerEl.classList.remove('time-running-out');
             endGame();
         }
     }, 1000);
