@@ -18,7 +18,7 @@ var LEVELS = [
 
 var GRID_SIZE = 4;
 var MIN_WORD_LENGTH = 3;
-var LEVEL_REQ = 10;
+var LEVEL_REQ = 2;
 var GAME_DURATION
 
 var totalScore = 0;
