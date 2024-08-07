@@ -14,28 +14,28 @@
     </header>
 
     <main>
-        <section id="player-input">
+        <div id="player-input" class="section">
             <h2>Ingresa tu nombre para jugar</h2>
-            <form id="player-form" >
+            <form id="player-form">
                 <label for="player-name">Nombre del jugador:</label>
-                <input type="text" id="player-name" name="player-name" minlength="3" required>
+                <input type="text" id="player-name" name="player-name" required>
+                <div id="validation-message" class="validation-message"></div>
                 
                 <div class="timer-selection">
                     <label for="timer">Tiempo de juego:</label>
-                    <select id="timer" name="timer" required>
+                    <select id="timer" name="timer">
                         <option value="1">1 minuto</option>
                         <option value="2">2 minutos</option>
                         <option value="3">3 minutos</option>
                     </select>
                 </div>
-
-                <div class="game-mode-buttons">
-                    <button type="submit"  id="random-mode">Aleatorio</button>
-                    <button type="submit"  id="levels-mode">Niveles</button>
-                </div>
                 
+                <div class="game-mode-buttons">
+                    <button id="random-mode" type="button">Aleatorio</button>
+                    <button id="levels-mode" type="button">Niveles</button>
+                </div>
             </form>
-        </section>
+        </div>
     </main>
 
     <footer>

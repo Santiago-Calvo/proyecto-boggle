@@ -21,10 +21,12 @@ var MIN_WORD_LENGTH = 3;
 var LEVEL_REQ = 1;
 var GAME_DURATION
 
+var totalScore = 0;
+
 var currentLevel = 0;
 var grid = [];
 var currentWord = '';
-var score = 0;
+//var score = 0;
 var timer;
 var foundWords = new Set();
 var remainingWords = new Set();
@@ -38,7 +40,10 @@ var gameOverModal = document.getElementById('game-over-modal');
 var finalScoreEl = document.getElementById('final-score');
 var playAgainBtn = document.getElementById('play-again');
 var currentLevelEl = document.querySelector('#current-level span');
-var wordsRemainingEl = document.getElementById('words-remaining');
+var modalTitle = document.getElementById('modal-title');
+var levelsCompletedText = document.getElementById('levels-completed-text');
+var levelsCompletedEl = document.getElementById('levels-completed');
+
 
 function initGame() {
     loadLevel(currentLevel);
@@ -50,11 +55,11 @@ function initGame() {
 
 function loadLevel(levelIndex) {
     grid = LEVELS[levelIndex].grid;
+    currentLevel++;
     remainingWords = new Set(LEVELS[levelIndex].words);
     foundWords.clear();
-    score = 0;
+    scoreEl.textContent = totalScore;
     currentLevelEl.textContent = levelIndex + 1;
-    scoreEl.textContent = '0';
     wordListEl.innerHTML = '';
 }
 
@@ -116,16 +121,41 @@ function handleCellClick(e) {
             selectedCells.push({ row: newRow, col: newCol });
             currentWord += e.target.textContent;
             updateCurrentWord();
+            highlightValidCells();
         } else if (selectedCells.length > 1 && newRow === selectedCells[selectedCells.length - 2].row && newCol === selectedCells[selectedCells.length - 2].col) {
             var lastCell = selectedCells.pop();
             document.querySelector(`.grid-cell[data-row="${lastCell.row}"][data-col="${lastCell.col}"]`).classList.remove('selected');
             currentWord = currentWord.slice(0, -1);
             updateCurrentWord();
+            highlightValidCells();
         } else {
             resetSelection(); 
         }
     }
 }
+
+function highlightValidCells() {
+    boggleGrid.querySelectorAll('.grid-cell').forEach(cell => {
+        cell.classList.remove('valid-next');
+    });
+
+    if (selectedCells.length > 0) {
+        var lastCell = selectedCells[selectedCells.length - 1];
+        for (var i = -1; i <= 1; i++) {
+            for (var j = -1; j <= 1; j++) {
+                var newRow = lastCell.row + i;
+                var newCol = lastCell.col + j;
+                if (newRow >= 0 && newRow < GRID_SIZE && newCol >= 0 && newCol < GRID_SIZE) {
+                    var cell = boggleGrid.querySelector(`.grid-cell[data-row="${newRow}"][data-col="${newCol}"]`);
+                    if (cell && !cell.classList.contains('selected')) {
+                        cell.classList.add('valid-next');
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 function isValidNextCell(row, col) {
     if (selectedCells.length === 0) return true;
@@ -155,7 +185,7 @@ function validateWord(word) {
         resetSelection();
         updateScore(word);
         addWordToList(word);
-        updateWordsRemaining();
+
         
         if (foundWords.size === LEVEL_REQ) {
             endLevel();
@@ -165,8 +195,8 @@ function validateWord(word) {
 }
 
 function updateScore(word) {
-    score += word.length;
-    scoreEl.textContent = score;
+    totalScore += word.length;
+    scoreEl.textContent = totalScore;
 }
 
 function addWordToList(word) {
@@ -178,18 +208,16 @@ function addWordToList(word) {
 function resetSelection() {
     currentWord = '';
     currentWordEl.textContent = '';
-    boggleGrid.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('selected'));
+    boggleGrid.querySelectorAll('.grid-cell').forEach(cell => {
+        cell.classList.remove('selected');
+        cell.classList.remove('valid-next');
+    });
     selectedCells = [];
-}
-
-function updateWordsRemaining() {
-    wordsRemainingEl.textContent = remainingWords.size;
 }
 
 function endLevel() {
     clearInterval(timer);
-    if (currentLevel < LEVELS.length - 1) {
-        currentLevel++;
+    if (currentLevel < LEVELS.length) {
         initGame();
     } else {
         endGame();
@@ -197,13 +225,16 @@ function endLevel() {
 }
 
 function endGame() {
-    finalScoreEl.textContent = score;
+    modalTitle.textContent = '¡Juego Completado!';
+    levelsCompletedText.style.display = 'block';
+    levelsCompletedEl.textContent = LEVELS.length;
+    finalScoreEl.textContent = totalScore;
     gameOverModal.style.display = 'flex';
 }
 
 function restartGame() {
     currentLevel = 0;
-    score = 0;
+    totalScore = 0;
     gameOverModal.style.display = 'none';
     initGame();
 }
