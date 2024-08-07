@@ -170,6 +170,7 @@ main {
     border-radius: 10px;
     width: 80%;
     max-width: 500px;
+    height: fit-content;
     text-align: center;
 }
 
