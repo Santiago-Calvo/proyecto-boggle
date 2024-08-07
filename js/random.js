@@ -167,10 +167,9 @@ function updateCurrentWord() {
 }
 
 function validateWord(word) {
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`).then(response => {
-        var data = response.json();
 
-        if (response.ok && data.length > 0) {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`).then(response => {
+        if (response.ok) {
             if (!foundWords.has(word)) {
                 foundWords.add(word);
                 updateScore(word);
