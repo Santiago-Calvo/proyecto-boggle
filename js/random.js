@@ -1,27 +1,27 @@
 'use strict'
 
 // Config
-const GRID_SIZE = 4;
-const MIN_WORD_LENGTH = 3;
-let GAME_DURATION;
-let grid = [];
-let currentWord = '';
-let score = 0;
-let timer;
-let foundWords = new Set();
-let selectedCells = [];
+var GRID_SIZE = 4;
+var MIN_WORD_LENGTH = 3;
+var GAME_DURATION;
+var grid = [];
+var currentWord = '';
+var score = 0;
+var timer;
+var foundWords = new Set();
+var selectedCells = [];
 
-const boggleGrid = document.getElementById('boggle-grid');
-const currentWordEl = document.getElementById('current-word');
-const timerEl = document.getElementById('time-left');
-const scoreEl = document.querySelector('#current-score span');
-const wordListEl = document.querySelector('#word-list ul');
-const gameOverModal = document.getElementById('game-over-modal');
-const finalScoreEl = document.getElementById('final-score');
-const playAgainBtn = document.getElementById('play-again');
+var boggleGrid = document.getElementById('boggle-grid');
+var currentWordEl = document.getElementById('current-word');
+var timerEl = document.getElementById('time-left');
+var scoreEl = document.querySelector('#current-score span');
+var wordListEl = document.querySelector('#word-list ul');
+var gameOverModal = document.getElementById('game-over-modal');
+var finalScoreEl = document.getElementById('final-score');
+var playAgainBtn = document.getElementById('play-again');
 
 // Letter distribution adapted from https://en.wikipedia.org/wiki/Letter_frequency
-const LETTER_DISTRIBUTION = {
+var LETTER_DISTRIBUTION = {
     'A': 9, 'B': 2, 'C': 2, 'D': 4, 'E': 12, 'F': 2, 'G': 3, 'H': 2, 'I': 9,
     'J': 1, 'K': 1, 'L': 4, 'M': 2, 'N': 6, 'O': 8, 'P': 2, 'Qu': 1, 'R': 6,
     'S': 4, 'T': 6, 'U': 4, 'V': 2, 'W': 2, 'X': 1, 'Y': 2, 'Z': 1
@@ -35,17 +35,17 @@ function initGame() {
 }
 
 function generateGrid() {
-    const letters = [];
-    for (const [letter, frequency] of Object.entries(LETTER_DISTRIBUTION)) {
+    var letters = [];
+    for (var [letter, frequency] of Object.entries(LETTER_DISTRIBUTION)) {
         letters.push(...Array(frequency).fill(letter));
     }
     
     grid = [];
     for (var i = 0; i < GRID_SIZE; i++) {
-        const row = [];
+        var row = [];
         for (var j = 0; j < GRID_SIZE; j++) {
-            const randomIndex = Math.floor(Math.random() * letters.length);
-            const letter = letters.splice(randomIndex, 1)[0];
+            var randomIndex = Math.floor(Math.random() * letters.length);
+            var letter = letters.splice(randomIndex, 1)[0];
             row.push(letter);
         }
         grid.push(row);
@@ -53,11 +53,11 @@ function generateGrid() {
 }
 
 function renderGrid() {
-    const cells = boggleGrid.querySelectorAll('.grid-cell');
+    var cells = boggleGrid.querySelectorAll('.grid-cell');
     cells.forEach((cell, index) => {
-        const row = Math.floor(index / GRID_SIZE);
-        const col = index % GRID_SIZE;
-        const letter = grid[row][col];
+        var row = Math.floor(index / GRID_SIZE);
+        var col = index % GRID_SIZE;
+        var letter = grid[row][col];
         cell.textContent = letter;
         cell.dataset.row = row;
         cell.dataset.col = col;
@@ -77,8 +77,8 @@ function startTimer() {
 }
 
 function updateTimer(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    var minutes = Math.floor(time / 60);
+    var seconds = time % 60;
     timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
@@ -90,8 +90,8 @@ function setupEventListeners() {
 
 function handleCellClick(e) {
     if (e.target.classList.contains('grid-cell')) {
-        const newRow = parseInt(e.target.dataset.row);
-        const newCol = parseInt(e.target.dataset.col);
+        var newRow = parseInt(e.target.dataset.row);
+        var newCol = parseInt(e.target.dataset.col);
         
         if (selectedCells.length === 0 || isValidNextCell(newRow, newCol)) {
             e.target.classList.add('selected');
@@ -99,7 +99,7 @@ function handleCellClick(e) {
             currentWord += e.target.textContent === 'Qu' ? 'Qu' : e.target.textContent;
             updateCurrentWord();
         } else if (selectedCells.length > 1 && newRow === selectedCells[selectedCells.length - 2].row && newCol === selectedCells[selectedCells.length - 2].col) {
-            const lastCell = selectedCells.pop();
+            var lastCell = selectedCells.pop();
             document.querySelector(`.grid-cell[data-row="${lastCell.row}"][data-col="${lastCell.col}"]`).classList.remove('selected');
             currentWord = currentWord.slice(0, -1);
             updateCurrentWord();
@@ -118,9 +118,9 @@ function handleClickOutside(e) {
 function isValidNextCell(row, col) {
     if (selectedCells.length === 0) return true;
     
-    const lastCell = selectedCells[selectedCells.length - 1];
-    const rowDiff = Math.abs(row - lastCell.row);
-    const colDiff = Math.abs(col - lastCell.col);
+    var lastCell = selectedCells[selectedCells.length - 1];
+    var rowDiff = Math.abs(row - lastCell.row);
+    var colDiff = Math.abs(col - lastCell.col);
     
     return rowDiff <= 1 && colDiff <= 1 && !(rowDiff === 0 && colDiff === 0) && !isCellAlreadySelected(row, col);
 }
@@ -139,8 +139,8 @@ function updateCurrentWord() {
 async function validateWord(word) {
     
     try {
-        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`);
-        const data = await response.json();
+        var response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`);
+        var data = await response.json();
         
         if (response.ok && data.length > 0) {
             if (!foundWords.has(word)) {
@@ -163,7 +163,7 @@ function updateScore(word) {
 }
 
 function addWordToList(word) {
-    const li = document.createElement('li');
+    var li = document.createElement('li');
     li.textContent = word;
     wordListEl.appendChild(li);
 }
