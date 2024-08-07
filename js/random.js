@@ -212,6 +212,7 @@ function endGame() {
     clearInterval(timer);
     finalScoreEl.textContent = score;
     gameOverModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 function restartGame() {
@@ -220,6 +221,7 @@ function restartGame() {
     wordListEl.innerHTML = '';
     scoreEl.textContent = '0';
     gameOverModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
     initGame();
 }
 

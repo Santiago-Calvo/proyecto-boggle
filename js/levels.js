@@ -230,12 +230,14 @@ function endGame() {
     levelsCompletedEl.textContent = LEVELS.length;
     finalScoreEl.textContent = totalScore;
     gameOverModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 function restartGame() {
     currentLevel = 0;
     totalScore = 0;
     gameOverModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
     initGame();
 }
 
