@@ -1,216 +1,216 @@
 :root {
-    --main-bg-color: #fce5cd;
-    --dark-blue: #233546;
-    --light-blue: #345a76;
-    --lighter-blue: #f0f5f9; 
-    --accent-yellow: #e6a756;
-    --text-color: #233546;
-    --text-danger: #ff0000;
-  }
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background-color: var(--main-bg-color);
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-
-    -webkit-user-select: none;
-      -moz-user-select: none;
-       -ms-user-select: none;
-           user-select: none;
-  }
-  
-  header {
-    padding: 1rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    color: var(--dark-blue);
-    font-weight: 700;
-  }
-  
-  h1 a {
-    color: var(--dark-blue);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  h1 a:hover {
-    color: var(--accent-yellow);
-  }
-  
-  main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-  }
-  
-  #player-input {
-    background-color: var(--light-blue);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .validation-message {
-    color: red;
-    font-size: 0.8em;
-    margin-top: 3px;
-    min-height: 1em;
+  --main-bg-color: #fce5cd;
+  --dark-blue: #233546;
+  --light-blue: #345a76;
+  --lighter-blue: #f0f5f9; 
+  --accent-yellow: #e6a756;
+  --text-color: #233546;
+  --text-danger: #ff0000;
 }
-  
-  h2 {
-    color: var(--accent-yellow);
-    margin-bottom: 1rem;
-    text-align: center;
-    font-weight: 600;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    color: var(--accent-yellow);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  
-  input[type="text"] {
-    padding: 0.5rem;
-    border: 2px solid var(--accent-yellow);
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    background-color: var(--lighter-blue);
-    color: var(--dark-blue);
-    font-family: 'Roboto', Arial, sans-serif;
-    font-weight: 400;
-  }
-  
-  input[type="text"]::placeholder {
-    color: var(--dark-blue);
-    opacity: 0.7;
-  }
-  
-  select {
-    padding: 0.5rem;
-    border: 2px solid var(--accent-yellow);
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    background-color: var(--light-blue); 
-    color: var(--accent-yellow); 
-    font-family: 'Roboto', Arial, sans-serif;
-    font-weight: 400;
-  }
-  .timer-selection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .timer-selection label {
-    flex: 1;
-    margin-bottom: 0;
-  }
-  
-  .timer-selection select {
-    flex: 1;
-    margin-left: 1rem;
-    margin-bottom: 0;
-  }
-  
-  button {
-    background-color: transparent;
-    color: var(--accent-yellow);
-    border: 2px solid var(--accent-yellow);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    font-weight: 600;
-    font-family: 'Roboto', Arial, sans-serif;
-  }
-  
-  button:hover {
-    background-color: var(--accent-yellow);
-    color: var(--dark-blue);
-  }
-  
-  footer {
-    text-align: center;
-    padding: 1rem;
-    color: var(--dark-blue);
-  }
-  
-  footer a {
-    color: var(--dark-blue);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  footer a:hover {
-    text-decoration: underline;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  -webkit-user-select: none;
+    -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+header {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--dark-blue);
+  font-weight: 700;
+}
+
+h1 a {
+  color: var(--dark-blue);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+h1 a:hover {
+  color: var(--accent-yellow);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+#player-input {
+  background-color: var(--light-blue);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.validation-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 3px;
+  min-height: 1em;
+}
+
+h2 {
+  color: var(--accent-yellow);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  color: var(--accent-yellow);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  border: 2px solid var(--accent-yellow);
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  background-color: var(--lighter-blue);
+  color: var(--dark-blue);
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 400;
+}
+
+input[type="text"]::placeholder {
+  color: var(--dark-blue);
+  opacity: 0.7;
+}
+
+select {
+  padding: 0.5rem;
+  border: 2px solid var(--accent-yellow);
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  background-color: var(--light-blue); 
+  color: var(--accent-yellow); 
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 400;
+}
+.timer-selection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.timer-selection label {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.timer-selection select {
+  flex: 1;
+  margin-left: 1rem;
+  margin-bottom: 0;
+}
+
+button {
+  background-color: transparent;
+  color: var(--accent-yellow);
+  border: 2px solid var(--accent-yellow);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 600;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+button:hover {
+  background-color: var(--accent-yellow);
+  color: var(--dark-blue);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: var(--dark-blue);
+}
+
+footer a {
+  color: var(--dark-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.game-mode-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.game-mode-buttons button {
+  flex: 1;
+  margin: 0 0.5rem;
+}
+
+.game-mode-buttons button:first-child {
+  margin-left: 0;
+}
+
+.game-mode-buttons button:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 768px) {
+  header {
+    justify-content: center;
   }
 
-  .game-mode-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+  #player-input {
+    padding: 1.5rem;
   }
-  
-  .game-mode-buttons button {
-    flex: 1;
-    margin: 0 0.5rem;
+
+  input[type="text"],
+  select,
+  button {
+    font-size: 16px; 
   }
-  
-  .game-mode-buttons button:first-child {
+
+  .timer-selection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timer-selection select {
     margin-left: 0;
+    margin-top: 0.5rem;
+    width: 100%;
   }
-  
-  .game-mode-buttons button:last-child {
-    margin-right: 0;
-  }
-  
-  @media (max-width: 768px) {
-    header {
-      justify-content: center;
-    }
-  
-    #player-input {
-      padding: 1.5rem;
-    }
-  
-    input[type="text"],
-    select,
-    button {
-      font-size: 16px; 
-    }
-  
-    .timer-selection {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .timer-selection select {
-      margin-left: 0;
-      margin-top: 0.5rem;
-      width: 100%;
-    }
-  }
+}
