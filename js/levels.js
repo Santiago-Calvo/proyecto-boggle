@@ -8,7 +8,7 @@ var LEVELS = [
     },
     {
         grid: ['J', 'L', 'F', 'I', 'O', 'I', 'H', 'O', 'A', 'N', 'H', 'E', 'O', 'T', 'G', 'G'],
-        words: ['TON', 'THE', 'TAO', 'TAN', 'OAT', 'NTH', 'NOT', 'LAT', 'FOE', 'ANT', 'ALL', 'HOE', 'EGG', 'TONG', 'TANG', 'TALL', 'ONTO', 'OATH', 'LONG', 'LATH', 'GNAT', 'FLAT', 'FLAN', 'LOAN', 'LOATH', 'LATHE', 'FOEHN', 'FLOAT', 'ALONG', 'ALLONGE']
+        words: ['TON', 'THE', 'TAO', 'TAN', 'OAT', 'NTH', 'NOT', 'LAT', 'FOE', 'ANT', 'ALL', 'HOE', 'OIL' ,'EGG', 'TONG', 'TANG', 'TALL', 'ONTO', 'OATH', 'LONG', 'LATH', 'GNAT', 'FLAT', 'FLAN', 'LOAN', 'LOATH', 'LATHE', 'FOEHN', 'FLOAT', 'ALONG', 'ALLONGE']
     },
     {
         grid: ['T', 'T', 'J', 'I', 'A', 'R', 'D', 'T', 'T', 'T', 'U', 'D', 'G', 'P', 'N', 'E'],
