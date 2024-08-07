@@ -10,6 +10,7 @@ var score = 0;
 var timer;
 var foundWords = new Set();
 var selectedCells = [];
+var penalty = false;
 
 var boggleGrid = document.getElementById('boggle-grid');
 var currentWordEl = document.getElementById('current-word');
@@ -19,6 +20,7 @@ var wordListEl = document.querySelector('#word-list ul');
 var gameOverModal = document.getElementById('game-over-modal');
 var finalScoreEl = document.getElementById('final-score');
 var playAgainBtn = document.getElementById('play-again');
+var validateButton = document.getElementById('validate-word');
 
 // Letter distribution adapted from https://en.wikipedia.org/wiki/Letter_frequency
 var LETTER_DISTRIBUTION = {
@@ -28,6 +30,7 @@ var LETTER_DISTRIBUTION = {
 };
 
 function initGame() {
+    score = 0;
     generateGrid();
     renderGrid();
     startTimer();
@@ -92,6 +95,7 @@ function setupEventListeners() {
     boggleGrid.addEventListener('click', handleCellClick);
     playAgainBtn.addEventListener('click', restartGame);
     document.addEventListener('click', handleClickOutside);
+    validateButton.addEventListener('click',() => {validateWord(currentWord);});
 }
 
 function handleCellClick(e) {
@@ -161,34 +165,43 @@ function isCellAlreadySelected(row, col) {
 
 function updateCurrentWord() {
     currentWordEl.textContent = currentWord;
-    if (currentWord.length >= MIN_WORD_LENGTH) {
-        validateWord(currentWord);
-    }
+
 }
 
 function validateWord(word) {
 
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`).then(response => {
-        if (response.ok) {
-            if (!foundWords.has(word)) {
-                foundWords.add(word);
-                updateScore(word);
-                addWordToList(word);
-                resetSelection();
-            }           
-        } else {
-            updateScore(word, true);
-        }
-    }).catch(error => {
-        console.error('Error:', error);
-    })
+    if (currentWord.length >= MIN_WORD_LENGTH) {
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`).then(response => {
+            if (response.ok) {
+                if (!foundWords.has(word)) {
+
+                    foundWords.add(word);
+                    updateScore(word);
+                    addWordToList(word);
+                    resetSelection();
+                }  else {
+                    updateScore(word, true);
+                }         
+            } else {
+                updateScore(word, true);
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        })
+    }
+
+    
 }
 
 function updateScore(word, penalty = false) {
     if (penalty) {
         score -= word.length;
-    } else {
+    } else {        
         score += word.length;
+    }
+
+    if (score < 0){
+        score = 0;
     }
 
     scoreEl.textContent = score;

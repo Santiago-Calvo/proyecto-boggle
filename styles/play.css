@@ -199,11 +199,35 @@ footer {
     padding: 1rem;
 }
 
+.info-button {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--lighter-blue);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.info-button:hover {
+    background-color: var(--accent-yellow);
+    color: var(--dark-blue);
+}
+
 
 @media (max-width: 768px) {
     .game-container {
         width: 100%;
         padding: 1rem;
+    }
+
+    .info-button {
+        width: 100%;
+        max-width: none;
     }
 
     .info-container, #boggle-grid, .score-board {

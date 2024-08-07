@@ -18,7 +18,7 @@ var LEVELS = [
 
 var GRID_SIZE = 4;
 var MIN_WORD_LENGTH = 3;
-var LEVEL_REQ = 1;
+var LEVEL_REQ = 10;
 var GAME_DURATION
 
 var totalScore = 0;
@@ -26,7 +26,6 @@ var totalScore = 0;
 var currentLevel = 0;
 var grid = [];
 var currentWord = '';
-//var score = 0;
 var timer;
 var foundWords = new Set();
 var remainingWords = new Set();
@@ -43,6 +42,7 @@ var currentLevelEl = document.querySelector('#current-level span');
 var modalTitle = document.getElementById('modal-title');
 var levelsCompletedText = document.getElementById('levels-completed-text');
 var levelsCompletedEl = document.getElementById('levels-completed');
+var validateButton = document.getElementById('validate-word');
 
 
 function initGame() {
@@ -54,6 +54,7 @@ function initGame() {
 }
 
 function loadLevel(levelIndex) {
+    currentWord = ''
     grid = LEVELS[levelIndex].grid;
     currentLevel++;
     remainingWords = new Set(LEVELS[levelIndex].words);
@@ -101,6 +102,8 @@ function setupEventListeners() {
     boggleGrid.addEventListener('click', handleCellClick);
     playAgainBtn.addEventListener('click', restartGame);
     document.addEventListener('click', handleClickOutside);
+    playAgainBtn.addEventListener('click', restartGame);
+    validateButton.addEventListener('click',() => {validateWord(currentWord);});
 }
 
 function handleClickOutside(e){
@@ -173,35 +176,43 @@ function isCellAlreadySelected(row, col) {
 
 function updateCurrentWord() {
     currentWordEl.textContent = currentWord;
-    if (currentWord.length >= MIN_WORD_LENGTH) {
-        validateWord(currentWord);
-    }
 }
 
 function validateWord(word) {
-    if (remainingWords.has(word) && !foundWords.has(word)) {
-        foundWords.add(word);
-        remainingWords.delete(word);
-        resetSelection();
-        updateScore(word);
-        addWordToList(word);
-
-        
-        if (foundWords.size === LEVEL_REQ) {
-            endLevel();
+    if (currentWord.length >= MIN_WORD_LENGTH){
+        if (remainingWords.has(word) && !foundWords.has(word)) {
+            foundWords.add(word);
+            remainingWords.delete(word);              
+            updateScore(word);       
+            addWordToList(word);
+            resetSelection();
+    
+            
+            if (foundWords.size === LEVEL_REQ) {
+                endLevel();
+            }
+        }
+        else {
+            updateScore(word, true);
+            resetSelection();
         }
     }
+    
     
 }
 
 function updateScore(word, penalty = false) {
     if (penalty) {
-        score -= word.length;
+        totalScore -= word.length;
     } else {
-        score += word.length;
+        totalScore += word.length;
+    }
+
+    if (totalScore < 0){
+        totalScore = 0;
     }
     
-    scoreEl.textContent = score;
+    scoreEl.textContent = totalScore;
 }
 
 function addWordToList(word) {
@@ -241,6 +252,7 @@ function endGame() {
 function restartGame() {
     currentLevel = 0;
     totalScore = 0;
+    
     gameOverModal.style.display = 'none';
     document.body.style.overflow = 'auto';
     initGame();
