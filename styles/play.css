@@ -191,6 +191,9 @@ main {
 }
 
 footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
     text-align: center;
     padding: 1rem;
 }
@@ -226,6 +229,10 @@ footer {
 
     .score-board {
         margin-top: 20px;
+    }
+
+    footer {
+        flex-direction: column;
     }
 }
 
