@@ -38,7 +38,7 @@ var gameOverModal = document.getElementById('game-over-modal');
 var finalScoreEl = document.getElementById('final-score');
 var playAgainBtn = document.getElementById('play-again');
 var currentLevelEl = document.querySelector('#current-level span');
-var wordsRemainingEl = document.getElementById('words-remaining');
+
 
 function initGame() {
     loadLevel(currentLevel);
@@ -155,7 +155,7 @@ function validateWord(word) {
         resetSelection();
         updateScore(word);
         addWordToList(word);
-        updateWordsRemaining();
+
         
         if (foundWords.size === LEVEL_REQ) {
             endLevel();
@@ -182,13 +182,9 @@ function resetSelection() {
     selectedCells = [];
 }
 
-function updateWordsRemaining() {
-    wordsRemainingEl.textContent = remainingWords.size;
-}
-
 function endLevel() {
     clearInterval(timer);
-    if (currentLevel < LEVELS.length - 1) {
+    if (currentLevel < LEVELS.length) {
         currentLevel++;
         initGame();
     } else {
