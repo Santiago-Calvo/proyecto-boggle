@@ -116,16 +116,41 @@ function handleCellClick(e) {
             selectedCells.push({ row: newRow, col: newCol });
             currentWord += e.target.textContent;
             updateCurrentWord();
+            highlightValidCells();
         } else if (selectedCells.length > 1 && newRow === selectedCells[selectedCells.length - 2].row && newCol === selectedCells[selectedCells.length - 2].col) {
             var lastCell = selectedCells.pop();
             document.querySelector(`.grid-cell[data-row="${lastCell.row}"][data-col="${lastCell.col}"]`).classList.remove('selected');
             currentWord = currentWord.slice(0, -1);
             updateCurrentWord();
+            highlightValidCells();
         } else {
             resetSelection(); 
         }
     }
 }
+
+function highlightValidCells() {
+    boggleGrid.querySelectorAll('.grid-cell').forEach(cell => {
+        cell.classList.remove('valid-next');
+    });
+
+    if (selectedCells.length > 0) {
+        var lastCell = selectedCells[selectedCells.length - 1];
+        for (var i = -1; i <= 1; i++) {
+            for (var j = -1; j <= 1; j++) {
+                var newRow = lastCell.row + i;
+                var newCol = lastCell.col + j;
+                if (newRow >= 0 && newRow < GRID_SIZE && newCol >= 0 && newCol < GRID_SIZE) {
+                    var cell = boggleGrid.querySelector(`.grid-cell[data-row="${newRow}"][data-col="${newCol}"]`);
+                    if (cell && !cell.classList.contains('selected')) {
+                        cell.classList.add('valid-next');
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 function isValidNextCell(row, col) {
     if (selectedCells.length === 0) return true;
@@ -178,7 +203,10 @@ function addWordToList(word) {
 function resetSelection() {
     currentWord = '';
     currentWordEl.textContent = '';
-    boggleGrid.querySelectorAll('.grid-cell').forEach(cell => cell.classList.remove('selected'));
+    boggleGrid.querySelectorAll('.grid-cell').forEach(cell => {
+        cell.classList.remove('selected');
+        cell.classList.remove('valid-next');
+    });
     selectedCells = [];
 }
 

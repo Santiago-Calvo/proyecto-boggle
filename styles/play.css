@@ -119,6 +119,10 @@ main {
     background-color: var(--accent-yellow);
 }
 
+.grid-cell.valid-next {
+    background-color: #e0b76b; 
+}
+
 .grid-cell.selected {
     background-color: var(--accent-yellow);
     transform: scale(1.05);
@@ -190,6 +194,7 @@ footer {
     text-align: center;
     padding: 1rem;
 }
+
 
 @media (max-width: 768px) {
     .game-container {
