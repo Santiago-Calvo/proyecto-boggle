@@ -67,6 +67,13 @@
     max-width: 400px;
   }
   
+  .validation-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 3px;
+    min-height: 1em;
+}
+  
   h2 {
     color: var(--accent-yellow);
     margin-bottom: 1rem;
