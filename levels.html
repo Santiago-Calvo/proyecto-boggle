@@ -73,7 +73,7 @@
 
             <div class="score-board">
                 <h2>Puntuación</h2>
-                <div id="current-score">Puntuación actual: <span>0</span></div>
+                <div id="current-score">Puntuación Total: <span>0</span></div>
                 <div id="word-list">
                     <h3>Palabras encontradas:</h3>
                     <ul></ul>
@@ -84,8 +84,9 @@
 
     <div id="game-over-modal" class="modal">
         <div class="modal-content">
-            <h2>¡Tiempo terminado!</h2>
-            <p>Tu puntuación final: <span id="final-score"></span></p>
+            <h2 id="modal-title">¡Tiempo terminado!</h2>
+            <p id="levels-completed-text" style="display: none;">Niveles completados: <span id="levels-completed"></span></p>
+            <p>Puntuación final: <span id="final-score"></span></p>
             <button id="play-again">Jugar de nuevo</button>
         </div>
     </div>
