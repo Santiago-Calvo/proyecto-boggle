@@ -21,10 +21,12 @@ var MIN_WORD_LENGTH = 3;
 var LEVEL_REQ = 1;
 var GAME_DURATION
 
+var totalScore = 0;
+
 var currentLevel = 0;
 var grid = [];
 var currentWord = '';
-var score = 0;
+//var score = 0;
 var timer;
 var foundWords = new Set();
 var remainingWords = new Set();
@@ -38,6 +40,9 @@ var gameOverModal = document.getElementById('game-over-modal');
 var finalScoreEl = document.getElementById('final-score');
 var playAgainBtn = document.getElementById('play-again');
 var currentLevelEl = document.querySelector('#current-level span');
+var modalTitle = document.getElementById('modal-title');
+var levelsCompletedText = document.getElementById('levels-completed-text');
+var levelsCompletedEl = document.getElementById('levels-completed');
 
 
 function initGame() {
@@ -50,6 +55,7 @@ function initGame() {
 
 function loadLevel(levelIndex) {
     grid = LEVELS[levelIndex].grid;
+    currentLevel++;
     remainingWords = new Set(LEVELS[levelIndex].words);
     foundWords.clear();
     score = 0;
@@ -190,8 +196,8 @@ function validateWord(word) {
 }
 
 function updateScore(word) {
-    score += word.length;
-    scoreEl.textContent = score;
+    totalScore += word.length;
+    scoreEl.textContent = totalScore;
 }
 
 function addWordToList(word) {
@@ -212,8 +218,8 @@ function resetSelection() {
 
 function endLevel() {
     clearInterval(timer);
+    totalScore += score;
     if (currentLevel < LEVELS.length) {
-        currentLevel++;
         initGame();
     } else {
         endGame();
@@ -221,13 +227,20 @@ function endLevel() {
 }
 
 function endGame() {
-    finalScoreEl.textContent = score;
+    modalTitle.textContent = '¡Juego Completado!';
+    levelsCompletedText.style.display = 'block';
+    levelsCompletedEl.textContent = LEVELS.length;
+    finalScoreEl.textContent = totalScore;
     gameOverModal.style.display = 'flex';
+    
+    
+    playAgainBtn.textContent = 'Jugar de nuevo';
+    playAgainBtn.onclick = restartGame;
 }
 
 function restartGame() {
     currentLevel = 0;
-    score = 0;
+    totalScorescore = 0;
     gameOverModal.style.display = 'none';
     initGame();
 }
