@@ -166,12 +166,10 @@ function updateCurrentWord() {
     }
 }
 
-async function validateWord(word) {
-    
-    try {
-        var response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`);
-        var data = await response.json();
-        
+function validateWord(word) {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`).then(response => {
+        var data = response.json();
+
         if (response.ok && data.length > 0) {
             if (!foundWords.has(word)) {
                 foundWords.add(word);
@@ -182,9 +180,9 @@ async function validateWord(word) {
         } else {
             updateScore(word, true);
         }
-    } catch (error) {
-        console.error('Error validating word:', error);
-    }
+    }).catch(error => {
+        console.error('Error:', error);
+    })
 }
 
 function updateScore(word) {
