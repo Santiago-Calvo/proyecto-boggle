@@ -194,9 +194,14 @@ function validateWord(word) {
     
 }
 
-function updateScore(word) {
-    totalScore += word.length;
-    scoreEl.textContent = totalScore;
+function updateScore(word, penalty = false) {
+    if (penalty) {
+        score -= word.length;
+    } else {
+        score += word.length;
+    }
+    
+    scoreEl.textContent = score;
 }
 
 function addWordToList(word) {

@@ -184,8 +184,13 @@ function validateWord(word) {
     })
 }
 
-function updateScore(word) {
-    score += word.length;
+function updateScore(word, penalty = false) {
+    if (penalty) {
+        score -= word.length;
+    } else {
+        score += word.length;
+    }
+
     scoreEl.textContent = score;
 }
 
