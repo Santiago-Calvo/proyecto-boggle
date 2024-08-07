@@ -61,7 +61,7 @@ button[type="submit"]:hover {
     color: var(--accent-yellow);
 }
 
-.error-message {
+.error {
     color: var(--text-danger);
     font-size: 0.875rem;
     margin-top: 0.25rem;
