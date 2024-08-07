@@ -16,10 +16,10 @@ var LEVELS = [
     }
 ];
 
-const GRID_SIZE = 4;
-const MIN_WORD_LENGTH = 3;
-const LEVEL_REQ = 1;
-let GAME_DURATION
+var GRID_SIZE = 4;
+var MIN_WORD_LENGTH = 3;
+var LEVEL_REQ = 1;
+var GAME_DURATION
 
 var currentLevel = 0;
 var grid = [];
@@ -104,12 +104,12 @@ function handleClickOutside(e){
     }
 }
 
-let selectedCells = [];
+var selectedCells = [];
 
 function handleCellClick(e) {
     if (e.target.classList.contains('grid-cell')) {
-        const newRow = parseInt(e.target.dataset.row);
-        const newCol = parseInt(e.target.dataset.col);
+        var newRow = parseInt(e.target.dataset.row);
+        var newCol = parseInt(e.target.dataset.col);
         
         if (selectedCells.length === 0 || isValidNextCell(newRow, newCol)) {
             e.target.classList.add('selected');
@@ -117,7 +117,7 @@ function handleCellClick(e) {
             currentWord += e.target.textContent;
             updateCurrentWord();
         } else if (selectedCells.length > 1 && newRow === selectedCells[selectedCells.length - 2].row && newCol === selectedCells[selectedCells.length - 2].col) {
-            const lastCell = selectedCells.pop();
+            var lastCell = selectedCells.pop();
             document.querySelector(`.grid-cell[data-row="${lastCell.row}"][data-col="${lastCell.col}"]`).classList.remove('selected');
             currentWord = currentWord.slice(0, -1);
             updateCurrentWord();
