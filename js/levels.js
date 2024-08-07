@@ -58,9 +58,8 @@ function loadLevel(levelIndex) {
     currentLevel++;
     remainingWords = new Set(LEVELS[levelIndex].words);
     foundWords.clear();
-    score = 0;
+    scoreEl.textContent = totalScore;
     currentLevelEl.textContent = levelIndex + 1;
-    scoreEl.textContent = '0';
     wordListEl.innerHTML = '';
 }
 
@@ -218,7 +217,6 @@ function resetSelection() {
 
 function endLevel() {
     clearInterval(timer);
-    totalScore += score;
     if (currentLevel < LEVELS.length) {
         initGame();
     } else {
@@ -232,15 +230,11 @@ function endGame() {
     levelsCompletedEl.textContent = LEVELS.length;
     finalScoreEl.textContent = totalScore;
     gameOverModal.style.display = 'flex';
-    
-    
-    playAgainBtn.textContent = 'Jugar de nuevo';
-    playAgainBtn.onclick = restartGame;
 }
 
 function restartGame() {
     currentLevel = 0;
-    totalScorescore = 0;
+    totalScore = 0;
     gameOverModal.style.display = 'none';
     initGame();
 }
