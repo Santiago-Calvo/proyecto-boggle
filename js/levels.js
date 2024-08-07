@@ -80,6 +80,7 @@ function startTimer() {
         }
 
         if (timeLeft === 0) {
+            timerEl.classList.remove('time-running-out');
             endLevel();
         }
     }, 1000);
